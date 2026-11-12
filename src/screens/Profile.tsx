@@ -303,7 +303,9 @@ export function EspochScreen() {
           ))}
         </div>
       )}
-      <div className="why">Las fechas se publican en un archivo del repositorio (espoch-calendario.json) que se revisa a mano antes de cada actualización. DocenTime lo descarga una vez al día y te avisa si algo cambia.</div>
+      <div className="why">
+        Las fechas se transcriben del calendario académico oficial{cal?.fuente ? <> (<a href={cal.fuente} target="_blank" rel="noreferrer">espoch.edu.ec</a>)</> : ''} y se revisan a mano antes de publicarlas. DocenTime las descarga una vez al día y te avisa si algo cambia. Actualizado: {cal ? longDate(cal.actualizado) : '—'}.
+      </div>
     </div>
   );
 }

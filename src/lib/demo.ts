@@ -1,7 +1,7 @@
 // Datos de ejemplo relativos a la semana actual, para explorar la app sin cargar nada.
 import type { Activity, AppState, Course, Project, Task, Thesis } from './types';
 import { addDays, startOfWeek, todayISO, uid } from './dates';
-import { nextGradesDeadline } from './schedule';
+import { deadlineEnd, nextGradesDeadline } from './schedule';
 
 export function demoState(base: AppState, today: string = todayISO()): AppState {
   const W = startOfWeek(today);
@@ -95,7 +95,7 @@ export function demoState(base: AppState, today: string = todayISO()): AppState 
   const task = (o: Partial<Task> & { title: string }): Task => ({ id: uid('k'), kind: 'personal', priority: 'media', done: false, subtasks: [], createdAt: new Date().toISOString(), ...o });
   const tasks: Task[] = [
     task({ title: 'Calificar lección 2 · Bases de Datos', kind: 'clase', due: today, priority: 'alta' }),
-    task({ title: 'Subir notas del parcial · Bases de Datos A', kind: 'clase', due: notas?.date ?? d(4), priority: 'alta' }),
+    task({ title: 'Subir notas · Bases de Datos A', kind: 'clase', due: notas ? deadlineEnd(notas) : d(4), priority: 'alta' }),
     task({ title: 'Revisar capítulo 2 · tesis de Pedro', kind: 'titulacion', due: d(2) }),
     task({
       title: 'Informe de avance de vinculación',

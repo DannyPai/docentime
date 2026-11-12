@@ -30,10 +30,10 @@ Para explorar sin cargar nada, en la primera pantalla toca **Solo quiero explora
 
 Las fechas oficiales se leen del archivo [`public/espoch-calendario.json`](public/espoch-calendario.json). La app lo descarga una vez al día y avisa al docente si una fecha cambió.
 
-**Las fechas actuales son de ejemplo** (`"esEjemplo": true`). Para publicar el calendario oficial:
+Las fechas actuales corresponden al período **septiembre 2026 – febrero 2027**, transcritas del [calendario académico oficial](https://www.espoch.edu.ec/calendario-academico-2/). Para actualizarlo (por ejemplo, al empezar el período marzo – julio 2027):
 
 1. Edita `public/espoch-calendario.json` (se puede hacer desde la web de GitHub).
-2. Cambia `periodo`, `actualizado`, quita `esEjemplo` y escribe las fechas. Cada fecha lleva un `id` estable, un `title`, un `type` y `date` (y `endDate` si dura varios días):
+2. Cambia `periodo` y `actualizado` y escribe las fechas. Cada fecha lleva un `id` estable, un `title`, un `type` y `date` (y `endDate` si dura varios días; en las de tipo `notas`, `endDate` es el día en que vence la consignación):
 
 ```json
 { "id": "notas-p1", "title": "Límite de carga de notas · Parcial 1", "type": "notas", "date": "2026-11-27" }

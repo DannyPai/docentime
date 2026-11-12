@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { respondInvitation, toast, toastUndo, toggleGradesUploaded, toggleTask, useAppState } from '../lib/store';
 import { capitalize, diffDays, hoursLabel, longDate, nowTime, relativeDate, shortDate, startOfWeek, todayISO, toMin } from '../lib/dates';
-import { academicOn, courseName, freeWindows, nextGradesDeadline, occurrencesOn, OVERLOAD_MIN, semesterRange, totalMinutes } from '../lib/schedule';
+import { academicOn, courseName, deadlineEnd, freeWindows, nextGradesDeadline, occurrencesOn, OVERLOAD_MIN, semesterRange, totalMinutes } from '../lib/schedule';
 import { CheckButton, Empty, EventItem } from '../ui/kit';
 import { useNav } from '../ui/nav';
 import * as Icon from '../ui/icons';
@@ -25,7 +25,8 @@ export default function Today({ unseen }: { unseen: number }) {
   const academic = academicOn(s, today);
   const total = totalMinutes(occs);
   const deadline = nextGradesDeadline(s, today);
-  const daysLeft = deadline ? diffDays(today, deadline.date) : null;
+  const deadlineDay = deadline ? deadlineEnd(deadline) : null;
+  const daysLeft = deadlineDay ? diffDays(today, deadlineDay) : null;
   const uploaded = deadline ? s.gradesUploaded[deadline.id] ?? [] : [];
   const sem = semesterRange(s);
   const week = Math.max(1, Math.floor(diffDays(startOfWeek(sem.from), today) / 7) + 1);
@@ -83,7 +84,9 @@ export default function Today({ unseen }: { unseen: number }) {
               <span style={{ fontWeight: 600 }}>{deadline.title.replace('Límite de carga de notas · ', 'Carga de notas · ')}</span>
               <span className="badge badge-red" style={{ flex: 'none' }}>{daysLeft <= 0 ? 'Vence hoy' : daysLeft === 1 ? 'Mañana' : 'En ' + daysLeft + ' días'}</span>
             </div>
-            <div className="small muted">Vence el {longDate(deadline.date)}, 23:59 · e-learning ESPOCH</div>
+            <div className="small muted">
+              {deadline.endDate && deadline.date > today ? 'Del ' + shortDate(deadline.date) + ' al ' + shortDate(deadline.endDate) : 'Vence el ' + longDate(deadlineDay!) + ', 23:59'} · sistema académico ESPOCH
+            </div>
             <div className="row">
               <div className="progress"><span style={{ width: (uploaded.length / s.courses.length) * 100 + '%' }} /></div>
               <span className="mono">{uploaded.length} de {s.courses.length}</span>

@@ -69,6 +69,8 @@ export interface AcademicCalendar {
   periodo: string;
   actualizado: string;
   esEjemplo?: boolean;
+  /** Página oficial de donde se tomaron las fechas. */
+  fuente?: string;
   fechas: AcademicDate[];
 }
 

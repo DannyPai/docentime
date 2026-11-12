@@ -268,8 +268,13 @@ export function overlapPairs(state: AppState, from: string, to: string): [Occ, O
 /** Próxima fecha límite de notas (hoy o después). */
 export function nextGradesDeadline(state: AppState, today: string = todayISO()): AcademicDate | undefined {
   return (state.calendar?.fechas ?? [])
-    .filter((d) => d.type === 'notas' && (d.endDate ?? d.date) >= today)
-    .sort((a, b) => a.date.localeCompare(b.date))[0];
+    .filter((d) => d.type === 'notas' && deadlineEnd(d) >= today)
+    .sort((a, b) => deadlineEnd(a).localeCompare(deadlineEnd(b)))[0];
+}
+
+/** Último día de una fecha académica: en un rango de consignación, el día en que vence. */
+export function deadlineEnd(d: AcademicDate): string {
+  return d.endDate ?? d.date;
 }
 
 export const OVERLOAD_MIN = 8 * 60;

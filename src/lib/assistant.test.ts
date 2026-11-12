@@ -98,7 +98,8 @@ describe('asistente', () => {
   it('lista pendientes antes de subir notas', () => {
     const r = reply(state(), '¿Qué tengo pendiente antes de subir notas?', NOW);
     expect(r.list?.length).toBeGreaterThan(0);
-    expect(r.text).toContain('Parcial 1');
+    expect(r.text).toContain('medio ciclo');
+    expect(r.text).toContain('15 de noviembre');
   });
 
   it('crea tareas', () => {

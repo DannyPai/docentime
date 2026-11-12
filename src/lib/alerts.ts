@@ -3,7 +3,7 @@
 // notificaciones del sistema mientras la app está abierta.
 import type { AppState, Kind } from './types';
 import { addDays, diffDays, longDate, nowTime, shortDate, todayISO, toMin } from './dates';
-import { courseName, nextGradesDeadline, overlapPairs } from './schedule';
+import { courseName, deadlineEnd, nextGradesDeadline, overlapPairs } from './schedule';
 
 export interface Alert {
   id: string;
@@ -24,7 +24,7 @@ export function computeAlerts(state: AppState, today: string = todayISO()): Aler
 
   const dl = nextGradesDeadline(state, today);
   if (dl) {
-    const days = diffDays(today, dl.date);
+    const days = diffDays(today, deadlineEnd(dl));
     const pending = state.courses.filter((c) => !(state.gradesUploaded[dl.id] ?? []).includes(c.id));
     if (days <= Math.max(maxDays, 7) && pending.length) {
       out.push({
@@ -33,7 +33,7 @@ export function computeAlerts(state: AppState, today: string = todayISO()): Aler
         priority: 'alta',
         kind: 'plazo',
         title: days <= 0 ? 'Hoy vence la carga de notas' : 'Faltan ' + days + (days === 1 ? ' día' : ' días') + ' para subir notas',
-        body: dl.title + ' · ' + longDate(dl.date) + '. Pendiente: ' + pending.map(courseName).join(', ') + '.',
+        body: dl.title + ' · vence el ' + longDate(deadlineEnd(dl)) + '. Pendiente: ' + pending.map(courseName).join(', ') + '.',
         action: { label: 'Ver pendientes', to: 'asistente', prompt: '¿Qué tengo pendiente antes de subir notas?' }
       });
     }

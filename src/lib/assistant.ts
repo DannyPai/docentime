@@ -6,7 +6,7 @@ import {
   addDays, capitalize, durationLabel, fromISO, fromMin, hoursLabel, longDate, MONTHS, nowTime, relativeDate, shortDate, startOfWeek, toISO, toMin, uid, weekday
 } from './dates';
 import {
-  academicOn, conflicts, courseName, findSlot, freeWindows, KIND_LABEL, KIND_ORDER, minutesByKind, nextGradesDeadline, occurrences, occurrencesOn, OVERLOAD_MIN, totalMinutes
+  academicOn, conflicts, courseName, deadlineEnd, findSlot, freeWindows, KIND_LABEL, KIND_ORDER, minutesByKind, nextGradesDeadline, occurrences, occurrencesOn, OVERLOAD_MIN, totalMinutes
 } from './schedule';
 import { opsForDelete, opsForEdit } from './store';
 
@@ -521,7 +521,7 @@ function reorganize(state: AppState, orig: string, n: string, today: string): Re
 
 export function pendingItems(state: AppState, today: string) {
   const deadline = nextGradesDeadline(state, today);
-  const limit = deadline?.date ?? addDays(today, 14);
+  const limit = deadline ? deadlineEnd(deadline) : addDays(today, 14);
   const uploaded = deadline ? state.gradesUploaded[deadline.id] ?? [] : [];
   const items: { label: string; value: string }[] = [];
   for (const t of state.tasks.filter((t) => !t.done && (!t.due || t.due <= limit)).sort((a, b) => (a.due ?? '9').localeCompare(b.due ?? '9'))) {
@@ -539,18 +539,19 @@ export function pendingItems(state: AppState, today: string) {
     for (const c of state.courses.filter((c) => !uploaded.includes(c.id))) {
       const subj = norm(c.subject);
       if (taskText.includes('subir notas') && taskText.split(' | ').some((t) => t.includes('subir notas') && t.includes(subj))) continue;
-      items.push({ label: 'Subir notas · ' + courseName(c), value: shortDate(deadline.date) });
+      items.push({ label: 'Subir notas · ' + courseName(c), value: shortDate(deadlineEnd(deadline)) });
     }
   return { deadline, items };
 }
 
 function pending(state: AppState, today: string): Reply {
   const { deadline, items } = pendingItems(state, today);
-  if (!items.length) return { text: deadline ? 'No tienes pendientes antes de la carga de notas del ' + longDate(deadline.date) + '. Buen trabajo.' : 'No tienes tareas pendientes en las próximas dos semanas.' };
-  const days = deadline ? Math.max(0, Math.round((fromISO(deadline.date).getTime() - fromISO(today).getTime()) / 86400000)) : 0;
+  if (!items.length) return { text: deadline ? 'No tienes pendientes antes de que venza «' + deadline.title + '» el ' + longDate(deadlineEnd(deadline)) + '. Buen trabajo.' : 'No tienes tareas pendientes en las próximas dos semanas.' };
+  const end = deadline ? deadlineEnd(deadline) : today;
+  const days = deadline ? Math.max(0, Math.round((fromISO(end).getTime() - fromISO(today).getTime()) / 86400000)) : 0;
   return {
     text: deadline
-      ? 'Antes de «' + deadline.title + '» (' + longDate(deadline.date) + (days ? ', en ' + days + (days === 1 ? ' día' : ' días') : ', hoy') + ') te falta:'
+      ? 'Antes de que venza «' + deadline.title + '» (' + longDate(end) + (days ? ', en ' + days + (days === 1 ? ' día' : ' días') : ', hoy') + ') te falta:'
       : 'Esto es lo que tienes pendiente en las próximas dos semanas:',
     list: items.slice(0, 10)
   };
