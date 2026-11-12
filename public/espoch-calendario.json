@@ -1,0 +1,20 @@
+{
+  "periodo": "Octubre 2026 – Febrero 2027",
+  "actualizado": "2026-11-11",
+  "esEjemplo": true,
+  "fechas": [
+    { "id": "inicio-clases", "title": "Inicio de clases", "type": "inicio", "date": "2026-10-05" },
+    { "id": "feriado-difuntos", "title": "Feriado · Día de los Difuntos", "type": "feriado", "date": "2026-11-02" },
+    { "id": "feriado-cuenca", "title": "Feriado · Independencia de Cuenca", "type": "feriado", "date": "2026-11-03" },
+    { "id": "examenes-p1", "title": "Evaluaciones del primer parcial", "type": "examen", "date": "2026-11-16", "endDate": "2026-11-20" },
+    { "id": "notas-p1", "title": "Límite de carga de notas · Parcial 1", "type": "notas", "date": "2026-11-27" },
+    { "id": "feriado-navidad", "title": "Feriado · Navidad", "type": "feriado", "date": "2026-12-25" },
+    { "id": "feriado-anio-nuevo", "title": "Feriado · Año Nuevo", "type": "feriado", "date": "2027-01-01" },
+    { "id": "examenes-p2", "title": "Evaluaciones del segundo parcial", "type": "examen", "date": "2027-01-11", "endDate": "2027-01-15" },
+    { "id": "notas-p2", "title": "Límite de carga de notas · Parcial 2", "type": "notas", "date": "2027-01-22" },
+    { "id": "feriado-carnaval", "title": "Feriado · Carnaval", "type": "feriado", "date": "2027-02-08", "endDate": "2027-02-09" },
+    { "id": "examenes-finales", "title": "Exámenes finales y de suspensión", "type": "examen", "date": "2027-02-15", "endDate": "2027-02-19" },
+    { "id": "notas-finales", "title": "Límite de carga de notas finales", "type": "notas", "date": "2027-02-24" },
+    { "id": "fin-periodo", "title": "Fin del período académico", "type": "fin", "date": "2027-02-26" }
+  ]
+}
