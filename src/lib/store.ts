@@ -12,7 +12,7 @@ export const DEFAULT_SETTINGS: Settings = {
   career: '',
   designations: ['clase'],
   customDesignations: [],
-  theme: 'sistema',
+  theme: 'claro',
   dnd: false,
   quietFrom: '21:00',
   quietTo: '06:00',
@@ -48,7 +48,10 @@ function load(): AppState {
     if (!raw) return emptyState();
     const parsed = JSON.parse(raw) as AppState;
     const base = emptyState();
-    return { ...base, ...parsed, settings: { ...base.settings, ...parsed.settings } };
+    const settings = { ...base.settings, ...parsed.settings };
+    // Antes el tema por defecto seguía al sistema; si el docente nunca lo eligió, pasa a claro.
+    if (!settings.themeSet && settings.theme === 'sistema') settings.theme = 'claro';
+    return { ...base, ...parsed, settings };
   } catch {
     return emptyState();
   }

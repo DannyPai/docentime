@@ -20,7 +20,7 @@ function useTheme(pref: 'sistema' | 'claro' | 'oscuro') {
     const apply = () => {
       const dark = pref === 'oscuro' || (pref === 'sistema' && mq.matches);
       document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#140E0C' : '#FBF8F1');
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#140E0C' : '#FFFFFF');
     };
     apply();
     mq.addEventListener('change', apply);

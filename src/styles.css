@@ -1,14 +1,14 @@
 /* DocenTime · sistema de diseño (paleta "Rojo institucional") */
 :root {
-  --bg: #fbf8f1;
-  --sf: #f3eddd;
-  --band: #e9e0ca;
-  --card: #fffdf8;
-  --fg: #241a17;
-  --fg2: #62544c;
-  --fg3: #6e6058;
-  --ln: #e6dcc4;
-  --ln2: #d8ccb0;
+  --bg: #ffffff;
+  --sf: #f5f5f6;
+  --band: #ebebed;
+  --card: #ffffff;
+  --fg: #202020;
+  --fg2: #5c5c5c;
+  --fg3: #6b6b6b;
+  --ln: #e8e8e8;
+  --ln2: #d4d4d4;
   --red: #b41a12;
   --red-h: #9a150e;
   --on-red: #ffffff;
@@ -24,8 +24,8 @@
   --c2: #7a6520; --c2t: #f5efd9;
   --c3: #1b5e7a; --c3t: #e3f0f5;
   --c4: #9a4a16; --c4t: #fbeadb;
-  --c5: #5a504a; --c5t: #ece6d8;
-  --overlay: rgba(36, 26, 23, 0.45);
+  --c5: #555555; --c5t: #eeeeee;
+  --overlay: rgba(32, 32, 32, 0.45);
   --shadow: 0 6px 20px rgba(58, 13, 10, 0.18);
   --font: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --display: 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
@@ -93,7 +93,7 @@ a { color: inherit; }
   background: var(--bg);
 }
 @media (min-width: 560px) {
-  body { background: var(--band); }
+  body { background: var(--sf); }
   .app { height: min(100dvh, 920px); margin-top: max(0px, calc((100dvh - 920px) / 2)); border-radius: 28px; box-shadow: var(--shadow); }
 }
 .screen {

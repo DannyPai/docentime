@@ -121,7 +121,7 @@ export default function Profile() {
         <div className="li">
           <span className="li-title">Tema</span>
           <div className="seg" style={{ width: 210 }}>
-            {(['sistema', 'claro', 'oscuro'] as const).map((t) => <button key={t} aria-pressed={st.theme === t} onClick={() => updateSettings({ theme: t })}>{capitalize(t)}</button>)}
+            {(['sistema', 'claro', 'oscuro'] as const).map((t) => <button key={t} aria-pressed={st.theme === t} onClick={() => updateSettings({ theme: t, themeSet: true })}>{capitalize(t)}</button>)}
           </div>
         </div>
         <div className="li">

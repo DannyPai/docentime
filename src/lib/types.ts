@@ -141,6 +141,8 @@ export interface Settings {
   designations: Kind[];
   customDesignations: { id: string; name: string; color: string }[];
   theme: 'sistema' | 'claro' | 'oscuro';
+  /** El docente eligió el tema a mano en Perfil. */
+  themeSet?: boolean;
   dnd: boolean;
   quietFrom: string;
   quietTo: string;
